@@ -2,8 +2,7 @@
 
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { ThemeToggle } from "./ThemeToggle"; // <-- 1. IMPORT THE TOGGLE
-
+import { ThemeToggle } from "./ThemeToggle";
 export const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
