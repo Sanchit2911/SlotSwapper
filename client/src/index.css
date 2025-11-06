@@ -1,0 +1,17 @@
+/* client/src/index.css */
+
+/* Keep these at the top */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add this section.
+  It tells the <body> to use a white background in light mode
+  and a dark background (bg-gray-900) when the 'dark' class is present.
+*/
+@layer base {
+  body {
+    @apply bg-white text-gray-900;
+    @apply dark:bg-gray-900 dark:text-gray-100;
+  }
+}
