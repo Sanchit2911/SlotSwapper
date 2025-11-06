@@ -26,22 +26,36 @@ const app: Application = express();
 app.use(helmet()); // Set security headers
 app.use(mongoSanitize()); // Prevent NoSQL injection
 
-// CORS – allow local + Vercel production & previews
-const allowedOriginsRegex = /^https:\/\/.*\.vercel\.app$/;
+// Define the exact origins we want to allow
+const allowedOrigins = [
+  "http://localhost:5173", // local frontend
+  "https://slotswapper-frontend-8oaeslx0t-sanchit-kumars-projects.vercel.app", // Vercel URL
+  // Add any other production Vercel URLs here
+];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // allow non-browser requests like Postman
-      if (origin === "http://localhost:5173" || allowedOriginsRegex.test(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("CORS not allowed"));
+      // Allow requests with no origin (like Postman or server-to-server)
+      if (!origin) {
+        return callback(null, true);
       }
+
+      // Check if the origin is in our allowed list
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      // If the origin is not in the list, reject it
+      return callback(new Error("This origin is not allowed by CORS."));
     },
     credentials: true,
+    methods: ["GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS"], // Explicitly allow methods
   })
 );
+
+// Handles preflight 'OPTIONS' requests globally to prevent 404s
+app.options("*", cors());
 
 // Body parser
 app.use(express.json());
