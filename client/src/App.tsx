@@ -19,8 +19,8 @@ function App() {
     <AuthProvider>
       <Router>
         {/*
-         * FIXED: Added dark:bg-gray-950 to the main wrapper.
-         * The 'bg-gray-50' was overriding your index.css.
+         * Added dark:bg-gray-950 to the main wrapper.
+         * 
          */}
         <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
           <Navbar />

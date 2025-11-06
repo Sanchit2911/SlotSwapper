@@ -101,8 +101,6 @@ export const updateEvent = async (
       });
     }
 
-    // **CHANGE: Safer update logic**
-
     // Check date logic if dates are part of the update
     const newStartTime = req.body.startTime
       ? new Date(req.body.startTime)
@@ -119,7 +117,7 @@ export const updateEvent = async (
     }
 
     // Update fields
-    // This is now safe because req.body has been filtered by updateEventSchema
+    // Safe because req.body has been filtered by updateEventSchema
     Object.assign(event, req.body);
 
     // Ensure dates are saved as Date objects if they were in req.body
@@ -133,7 +131,7 @@ export const updateEvent = async (
       data: event,
     });
   } catch (error: any) {
-    // **CHANGE: Pass error to centralized error handler**
+    // ** Pass error to centralized error handler**
     next(error);
   }
 };
@@ -144,7 +142,7 @@ export const updateEvent = async (
 export const deleteEvent = async (
   req: AuthRequest,
   res: Response,
-  next: NextFunction // **CHANGE: Added next**
+  next: NextFunction
 ) => {
   try {
     const event = await Event.findById(req.params.id);
@@ -180,7 +178,7 @@ export const deleteEvent = async (
       message: "Event deleted successfully",
     });
   } catch (error: any) {
-    // **CHANGE: Pass error to centralized error handler**
+    // ** Pass error to centralized error handler**
     next(error);
   }
 };

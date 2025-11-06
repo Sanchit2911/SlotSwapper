@@ -27,7 +27,6 @@ api.interceptors.request.use(
   }
 );
 
-// **CHANGES: Greatly improved response error handler**
 api.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
@@ -54,8 +53,6 @@ api.interceptors.response.use(
 
     // 2. Handle 401 Unauthorized (e.g., expired token)
     if (error.response?.status === 401) {
-      // Aggressive redirect can be bad UX.
-      // It's better to let components handle this via an error.
       // localStorage.removeItem("token");
       // localStorage.removeItem("user");
       // window.location.href = "/login";
@@ -106,7 +103,7 @@ export const swapsAPI = {
   cancel: (id: string) => api.delete(`/swaps/${id}`),
 };
 
-// **ADDITION: A simple helper to use in all 'catch' blocks**
+// ** A simple helper to use in all 'catch' blocks**
 export const getErrorMessage = (error: unknown): string => {
   if (error instanceof Error) {
     return error.message;

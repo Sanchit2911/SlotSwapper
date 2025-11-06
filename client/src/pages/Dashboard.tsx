@@ -103,7 +103,7 @@ export const Dashboard: React.FC = () => {
     reset({ title: "", startTime: "", endTime: "" });
   };
 
-  // FIXED: Added dark mode variants for statuses
+  // Added dark mode variants for statuses
   const getStatusColor = (status: EventStatus): string => {
     switch (status) {
       case EventStatus.BUSY:
@@ -128,7 +128,7 @@ export const Dashboard: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex justify-between items-center mb-8">
-        {/* FIXED: Added dark:text-gray-100 */}
+        {/* Added dark:text-gray-100 */}
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
           My Events
         </h1>
@@ -154,7 +154,7 @@ export const Dashboard: React.FC = () => {
 
       {events.length === 0 ? (
         <div className="text-center py-12">
-          {/* FIXED: Added dark:text-gray-400 */}
+          {/*  Added dark:text-gray-400 */}
           <p className="text-gray-500 dark:text-gray-400 text-lg">
             No events yet. Create your first event!
           </p>
@@ -164,16 +164,16 @@ export const Dashboard: React.FC = () => {
           {events.map((event) => (
             <div
               key={event._id}
-              // FIXED: Added dark:bg-gray-800
+              // Added dark:bg-gray-800
               className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition"
             >
               <div className="flex justify-between items-start">
                 <div className="flex-1">
-                  {/* FIXED: Added dark:text-gray-100 */}
+                  {/* Added dark:text-gray-100 */}
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
                     {event.title}
                   </h3>
-                  {/* FIXED: Added dark:text-gray-400 */}
+                  {/* Added dark:text-gray-400 */}
                   <p className="text-gray-600 dark:text-gray-400 mt-2">
                     {format(new Date(event.startTime), "PPpp")} -{" "}
                     {format(new Date(event.endTime), "p")}
@@ -217,7 +217,7 @@ export const Dashboard: React.FC = () => {
                     </button>
                   )}
                   {event.status === EventStatus.SWAP_PENDING && (
-                    // FIXED: Added dark:text-yellow-400
+                    // Added dark:text-yellow-400
                     <p className="text-sm text-yellow-600 dark:text-yellow-400 text-center">
                       Locked in swap
                     </p>
@@ -232,9 +232,9 @@ export const Dashboard: React.FC = () => {
       {/* Create Event Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          {/* FIXED: Added dark:bg-gray-800 */}
+          {/* Added dark:bg-gray-800 */}
           <div className="bg-white dark:bg-gray-800 rounded-lg p-8 max-w-md w-full">
-            {/* FIXED: Added dark:text-gray-100 */}
+            {/*  Added dark:text-gray-100 */}
             <h2 className="text-2xl font-bold mb-4 dark:text-gray-100">
               Create New Event
             </h2>
@@ -243,7 +243,7 @@ export const Dashboard: React.FC = () => {
               className="space-y-4"
             >
               <div>
-                {/* FIXED: Added dark:text-gray-300 */}
+                {/* Added dark:text-gray-300 */}
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Event Title
                 </label>
@@ -252,7 +252,7 @@ export const Dashboard: React.FC = () => {
                   required
                   {...register("title")}
                   /*
-                   * FIXED: Added dark:bg-gray-700, dark:text-gray-100, dark:border-gray-600
+                   *  Added dark:bg-gray-700, dark:text-gray-100, dark:border-gray-600
                    */
                   className={`mt-1 block w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 ${
                     errors.title ? "border-red-500" : "border-gray-300"
@@ -265,7 +265,7 @@ export const Dashboard: React.FC = () => {
                 )}
               </div>
               <div>
-                {/* FIXED: Added dark:text-gray-300 */}
+                {/* Added dark:text-gray-300 */}
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Start Time
                 </label>
@@ -274,7 +274,7 @@ export const Dashboard: React.FC = () => {
                   required
                   {...register("startTime")}
                   /*
-                   * FIXED: Added dark:bg-gray-700, dark:text-gray-100, dark:border-gray-600
+                   * Added dark:bg-gray-700, dark:text-gray-100, dark:border-gray-600
                    */
                   className={`mt-1 block w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 ${
                     errors.startTime ? "border-red-500" : "border-gray-300"
@@ -287,7 +287,7 @@ export const Dashboard: React.FC = () => {
                 )}
               </div>
               <div>
-                {/* FIXED: Added dark:text-gray-300 */}
+                {/* Added dark:text-gray-300 */}
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                   End Time
                 </label>
@@ -296,7 +296,7 @@ export const Dashboard: React.FC = () => {
                   required
                   {...register("endTime")}
                   /*
-                   * FIXED: Added dark:bg-gray-700, dark:text-gray-100, dark:border-gray-600
+                   * Added dark:bg-gray-700, dark:text-gray-100, dark:border-gray-600
                    */
                   className={`mt-1 block w-full px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 ${
                     errors.endTime ? "border-red-500" : "border-gray-300"
@@ -316,7 +316,7 @@ export const Dashboard: React.FC = () => {
                 >
                   {isSubmitting ? "Creating..." : "Create"}
                 </button>
-                {/* FIXED: Added dark: styles for cancel button */}
+                {/* Added dark: styles for cancel button */}
                 <button
                   type="button"
                   onClick={closeAndResetModal}
@@ -333,13 +333,13 @@ export const Dashboard: React.FC = () => {
       {/* Delete Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          {/* FIXED: Added dark:bg-gray-800 */}
+          {/* Added dark:bg-gray-800 */}
           <div className="bg-white dark:bg-gray-800 rounded-lg p-8 max-w-md w-full">
-            {/* FIXED: Added dark:text-gray-100 */}
+            {/* Added dark:text-gray-100 */}
             <h2 className="text-2xl font-bold mb-4 dark:text-gray-100">
               Are you sure?
             </h2>
-            {/* FIXED: Added dark:text-gray-300 */}
+            {/* Added dark:text-gray-300 */}
             <p className="text-gray-700 dark:text-gray-300 mb-6">
               This action cannot be undone. This will permanently delete the
               event.
@@ -352,7 +352,7 @@ export const Dashboard: React.FC = () => {
               >
                 Yes, Delete
               </button>
-              {/* FIXED: Added dark: styles for cancel button */}
+              {/* Added dark: styles for cancel button */}
               <button
                 type="button"
                 onClick={() => setShowDeleteConfirm(null)}

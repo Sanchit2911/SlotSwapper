@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider>
       {" "}
-      {/* <-- 2. WRAP THE <App /> COMPONENT */}
+      {/* 2. WRAP THE <App /> COMPONENT */}
       <App />
     </ThemeProvider>
   </React.StrictMode>

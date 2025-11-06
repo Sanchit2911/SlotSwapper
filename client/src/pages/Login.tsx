@@ -32,17 +32,17 @@ export const Login = () => {
   };
 
   return (
-    // FIXED: Removed 'bg-gray-50' - App.tsx now handles this.
+    // Removed 'bg-gray-50' - App.tsx now handles this.
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        {/* FIXED: Added dark:text-gray-100 */}
+        {/* Added dark:text-gray-100 */}
         <h2 className="text-center text-3xl font-extrabold text-gray-900 dark:text-gray-100">
           Sign in to SlotSwapper
         </h2>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        {/* FIXED: Added dark:bg-gray-800 to the card */}
+        {/* Added dark:bg-gray-800 to the card */}
         <div className="bg-white dark:bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             {serverError && (
@@ -52,7 +52,7 @@ export const Login = () => {
             )}
 
             <div>
-              {/* FIXED: Added dark:text-gray-300 */}
+              {/* Added dark:text-gray-300 */}
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Email address
               </label>
@@ -61,7 +61,7 @@ export const Login = () => {
                 required
                 {...register("email")}
                 /*
-                 * FIXED: Added dark:bg-gray-700, dark:text-gray-100, dark:border-gray-600
+                 * Added dark:bg-gray-700, dark:text-gray-100, dark:border-gray-600
                  */
                 className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 ${
                   errors.email
@@ -77,7 +77,7 @@ export const Login = () => {
             </div>
 
             <div>
-              {/* FIXED: Added dark:text-gray-300 */}
+              {/* Added dark:text-gray-300 */}
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 Password
               </label>
@@ -86,7 +86,7 @@ export const Login = () => {
                 required
                 {...register("password")}
                 /*
-                 * FIXED: Added dark:bg-gray-700, dark:text-gray-100, dark:border-gray-600
+                 * Added dark:bg-gray-700, dark:text-gray-100, dark:border-gray-600
                  */
                 className={`mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600 ${
                   errors.password
@@ -111,7 +111,7 @@ export const Login = () => {
           </form>
 
           <div className="mt-6 text-center">
-            {/* FIXED: Added dark:text-blue-400 */}
+            {/*Added dark:text-blue-400 */}
             <Link
               to="/signup"
               className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"

@@ -46,14 +46,14 @@ export const createEventSchema = z.object({
       endTime: z.coerce.date(),
       status: z.enum(["BUSY", "SWAPPABLE", "SWAP_PENDING"]).optional(),
     })
-    // **CHANGE: Added .refine() to validate date logic here, not in the controller**
+    // ** Added .refine() to validate date logic here, not in the controller**
     .refine((data) => data.endTime > data.startTime, {
       message: "End time must be after start time",
       path: ["endTime"], // Field to assign the error to
     }),
 });
 
-// **CHANGE: Added updateEventSchema for PATCH requests (all fields optional)**
+// ** Added updateEventSchema for PATCH requests (all fields optional)**
 export const updateEventSchema = z.object({
   body: createEventSchema.shape.body.partial(), // Makes all fields optional
 });
