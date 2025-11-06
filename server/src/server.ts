@@ -26,10 +26,19 @@ const app: Application = express();
 app.use(helmet()); // Set security headers
 app.use(mongoSanitize()); // Prevent NoSQL injection
 
-// CORS
+// CORS – allow local + Vercel production & previews
+const allowedOriginsRegex = /^https:\/\/.*\.vercel\.app$/;
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // allow non-browser requests like Postman
+      if (origin === "http://localhost:5173" || allowedOriginsRegex.test(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed"));
+      }
+    },
     credentials: true,
   })
 );
@@ -41,7 +50,7 @@ app.use(express.urlencoded({ extended: true }));
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
+  max: 100, // Limit each IP to 100 requests per window
   message: "Too many requests from this IP, please try again later.",
 });
 
