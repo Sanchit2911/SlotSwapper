@@ -1,5 +1,7 @@
 // server/src/server.ts
 
+// server/src/server.ts
+
 import express, { Application } from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -8,6 +10,7 @@ import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
 import connectDB from "./config/database";
 import { errorHandler } from "./middleware/errorHandler";
+import cookieParser from "cookie-parser"; // Added cookie-parser for future auth
 
 // Load routes
 import authRoutes from "./routes/auth.routes";
@@ -25,31 +28,47 @@ const app: Application = express();
 // Security middleware
 app.use(helmet()); // Set security headers
 app.use(mongoSanitize()); // Prevent NoSQL injection
+app.use(cookieParser()); // Add cookie parser middleware
 
-//regex
+//regex for all vercel preview URLs
 const vercelPreviewRegex = /^https:\/\/slotswapper-frontend.*\.vercel\.app$/;
 
+// === START PERMANENT CORS FIX ===
+// This logic block correctly handles all cases
 const corsOptions = {
   origin: (
     origin: string | undefined,
     callback: (err: Error | null, allow?: boolean) => void
   ) => {
-    // 1. Allow requests from localhost for development
-    if (process.env.NODE_ENV !== "production") {
-      if (!origin || origin.startsWith("http://localhost")) {
-        callback(null, true);
-        return;
-      }
+    // Case 1: Allow requests with no origin (like UptimeRobot, Postman)
+    if (!origin) {
+      callback(null, true);
+      return;
     }
 
+    // Case 2: Allow localhost in development
     if (
-      origin &&
-      (origin === process.env.CLIENT_URL || vercelPreviewRegex.test(origin))
+      process.env.NODE_ENV !== "production" &&
+      origin.startsWith("http://localhost")
     ) {
       callback(null, true);
-    } else {
-      callback(new Error("This origin is not allowed by CORS"));
+      return;
     }
+
+    // Case 3: Allow main production URL
+    if (origin === process.env.CLIENT_URL) {
+      callback(null, true);
+      return;
+    }
+
+    // Case 4: Allow all Vercel preview URLs
+    if (vercelPreviewRegex.test(origin)) {
+      callback(null, true);
+      return;
+    }
+
+    // If none of the above, block the request.
+    callback(new Error("This origin is not allowed by CORS"));
   },
   credentials: true,
   methods: ["GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS"],
@@ -61,6 +80,7 @@ app.options("*", cors(corsOptions));
 
 // Enable CORS for all routes
 app.use(cors(corsOptions));
+// === END PERMANFailure: CORS FIX ===
 
 // Body parser (AFTER CORS)
 app.use(express.json());
