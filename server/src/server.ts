@@ -26,20 +26,43 @@ const app: Application = express();
 app.use(helmet()); // Set security headers
 app.use(mongoSanitize()); // Prevent NoSQL injection
 
-// CORS configuration (auto handles local + production)
+//regex
+const vercelPreviewRegex = /^https:\/\/slotswapper-frontend.*\.vercel\.app$/;
+
 const corsOptions = {
-  origin:
-    process.env.NODE_ENV === "production"
-      ? process.env.CLIENT_URL
-      : "http://localhost:5173",
+  origin: (
+    origin: string | undefined,
+    callback: (err: Error | null, allow?: boolean) => void
+  ) => {
+    // 1. Allow requests from localhost for development
+    if (process.env.NODE_ENV !== "production") {
+      if (!origin || origin.startsWith("http://localhost")) {
+        callback(null, true);
+        return;
+      }
+    }
+
+    if (
+      origin &&
+      (origin === process.env.CLIENT_URL || vercelPreviewRegex.test(origin))
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error("This origin is not allowed by CORS"));
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PATCH", "DELETE", "PUT", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"], // Explicitly list headers
 };
 
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Handle preflight requests
+// Handle preflight requests FOR ALL routes
+app.options("*", cors(corsOptions));
 
-// Body parser
+// Enable CORS for all routes
+app.use(cors(corsOptions));
+
+// Body parser (AFTER CORS)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
