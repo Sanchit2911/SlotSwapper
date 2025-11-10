@@ -25,6 +25,7 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20.10.5",
     "@types/winston": "^2.4.4",
+    "@types/cookie-parser": "^1.4.10",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -39,7 +40,6 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@types/cookie-parser": "^1.4.10",
     "@types/jest": "^30.0.0",
     "@types/mongodb-memory-server": "^1.8.0",
     "jest": "^30.2.0",
