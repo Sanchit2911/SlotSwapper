@@ -1,4 +1,4 @@
-//  client/src/pages/Marketplace.tsx
+// client/src/pages/Marketplace.tsx
 
 import React, { useState, useEffect } from "react";
 import { swapsAPI, eventsAPI, getErrorMessage } from "../services/api";
@@ -41,6 +41,7 @@ export const Marketplace: React.FC = () => {
       );
       setMySwappableSlots(swappable);
     } catch (err: unknown) {
+      // <-- CORRECTED: Added opening brace {
       setError(getErrorMessage(err));
     } finally {
       setLoading(false);
@@ -97,22 +98,28 @@ export const Marketplace: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Marketplace</h1>
+      {/* Added dark:text-gray-100 */}
+      <h1 className="text-3xl font-bold text-gray-900 mb-8 dark:text-gray-100">
+        Marketplace
+      </h1>
 
       {error && (
-        <div className="mb-4 bg-red-50 border border-red-400 text-red-700 px-4 py-3 rounded">
+        // Added dark: variants
+        <div className="mb-4 bg-red-50 border border-red-400 text-red-700 px-4 py-3 rounded dark:bg-red-900 dark:text-red-200 dark:border-red-700">
           {error}
         </div>
       )}
 
       {success && (
-        <div className="mb-4 bg-green-50 border border-green-400 text-green-700 px-4 py-3 rounded">
+        // Added dark: variants
+        <div className="mb-4 bg-green-50 border border-green-400 text-green-700 px-4 py-3 rounded dark:bg-green-900 dark:text-green-200 dark:border-green-700">
           {success}
         </div>
       )}
 
       {mySwappableSlots.length === 0 && !loading && (
-        <div className="mb-6 bg-yellow-50 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
+        // Added dark: variants
+        <div className="mb-6 bg-yellow-50 border border-yellow-400 text-yellow-700 px-4 py-3 rounded dark:bg-yellow-900 dark:text-yellow-200 dark:border-yellow-700">
           You don't have any swappable slots. Go to your dashboard and mark an
           event as swappable first.
         </div>
@@ -120,7 +127,8 @@ export const Marketplace: React.FC = () => {
 
       {availableSlots.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">
+          {/* Added dark:text-gray-400 */}
+          <p className="text-gray-500 text-lg dark:text-gray-400">
             No available slots to swap at the moment.
           </p>
         </div>
@@ -129,22 +137,27 @@ export const Marketplace: React.FC = () => {
           {availableSlots.map((slot) => (
             <div
               key={slot._id}
-              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition"
+              // Added dark:bg-gray-800
+              className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition dark:bg-gray-800"
             >
               <div className="flex justify-between items-start mb-3">
-                <h3 className="text-lg font-semibold text-gray-900">
+                {/* Added dark:text-gray-100 */}
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                   {slot.title}
                 </h3>
-                <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">
+                {/* Added dark: variants */}
+                <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium dark:bg-blue-900 dark:text-blue-300">
                   Available
                 </span>
               </div>
 
-              <p className="text-sm text-gray-600 mb-2">
+              {/* Added dark:text-gray-400 */}
+              <p className="text-sm text-gray-600 mb-2 dark:text-gray-400">
                 Owner: <span className="font-medium">{getUserName(slot)}</span>
               </p>
 
-              <div className="text-sm text-gray-700 mb-4">
+              {/* Added dark:text-gray-300 */}
+              <div className="text-sm text-gray-700 mb-4 dark:text-gray-300">
                 <p className="font-medium">Start:</p>
                 <p>{format(new Date(slot.startTime), "PPpp")}</p>
                 <p className="font-medium mt-2">End:</p>
@@ -166,18 +179,31 @@ export const Marketplace: React.FC = () => {
       {/* Swap Request Modal */}
       {showModal && selectedTargetSlot && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
-            <h2 className="text-2xl font-bold mb-4">Request Swap</h2>
+          {/* Added dark:bg-gray-800 */}
+          <div className="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto dark:bg-gray-800">
+            {/* Added dark:text-gray-100 */}
+            <h2 className="text-2xl font-bold mb-4 dark:text-gray-100">
+              Request Swap
+            </h2>
 
-            <div className="mb-6 p-4 bg-gray-50 rounded">
-              <h3 className="font-semibold mb-2">You want:</h3>
-              <p className="text-lg">{selectedTargetSlot.title}</p>
-              <p className="text-sm text-gray-600">
+            {/* Added dark:bg-gray-700 */}
+            <div className="mb-6 p-4 bg-gray-50 rounded dark:bg-gray-700">
+              {/* Added dark:text-gray-100 */}
+              <h3 className="font-semibold mb-2 dark:text-gray-100">
+                You want:
+              </h3>
+              {/* Added dark:text-gray-100 */}
+              <p className="text-lg dark:text-gray-100">
+                {selectedTargetSlot.title}
+              </p>
+              {/* Added dark:text-gray-400 */}
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 {format(new Date(selectedTargetSlot.startTime), "PPpp")}
               </p>
             </div>
 
-            <h3 className="font-semibold mb-3">
+            {/* Added dark:text-gray-100 */}
+            <h3 className="font-semibold mb-3 dark:text-gray-100">
               Select one of your slots to offer:
             </h3>
 
@@ -185,11 +211,16 @@ export const Marketplace: React.FC = () => {
               {mySwappableSlots.map((slot) => (
                 <div
                   key={slot._id}
-                  className="p-4 border border-gray-300 rounded hover:border-blue-500 cursor-pointer"
+                  // Added dark: variants
+                  className="p-4 border border-gray-300 rounded hover:border-blue-500 cursor-pointer dark:border-gray-600 dark:hover:border-blue-400"
                   onClick={() => handleConfirmSwap(slot._id)}
                 >
-                  <h4 className="font-medium">{slot.title}</h4>
-                  <p className="text-sm text-gray-600">
+                  {/* Added dark:text-gray-100 */}
+                  <h4 className="font-medium dark:text-gray-100">
+                    {slot.title}
+                  </h4>
+                  {/* Added dark:text-gray-400 */}
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     {format(new Date(slot.startTime), "PPpp")}
                   </p>
                 </div>
@@ -201,7 +232,8 @@ export const Marketplace: React.FC = () => {
                 setShowModal(false);
                 setSelectedTargetSlot(null);
               }}
-              className="mt-6 w-full bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+              // Added dark: variants
+              className="mt-6 w-full bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
             >
               Cancel
             </button>

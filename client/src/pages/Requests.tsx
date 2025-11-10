@@ -97,38 +97,46 @@ export const Requests: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Swap Requests</h1>
+      {/* Added dark:text-gray-100 */}
+      <h1 className="text-3xl font-bold text-gray-900 mb-8 dark:text-gray-100">
+        Swap Requests
+      </h1>
 
       {error && (
-        <div className="mb-4 bg-red-50 border border-red-400 text-red-700 px-4 py-3 rounded">
+        // Added dark: variants
+        <div className="mb-4 bg-red-50 border border-red-400 text-red-700 px-4 py-3 rounded dark:bg-red-900 dark:text-red-200 dark:border-red-700">
           {error}
         </div>
       )}
 
       {success && (
-        <div className="mb-4 bg-green-50 border border-green-400 text-green-700 px-4 py-3 rounded">
+        // Added dark: variants
+        <div className="mb-4 bg-green-50 border border-green-400 text-green-700 px-4 py-3 rounded dark:bg-green-900 dark:text-green-200 dark:border-green-700">
           {success}
         </div>
       )}
 
       {/* Tabs */}
-      <div className="flex border-b border-gray-200 mb-6">
+      {/* Added dark:border-gray-700 */}
+      <div className="flex border-b border-gray-200 mb-6 dark:border-gray-700">
         <button
           onClick={() => setActiveTab("incoming")}
+          // Added dark: variants
           className={`px-6 py-3 font-medium ${
             activeTab === "incoming"
-              ? "border-b-2 border-blue-600 text-blue-600"
-              : "text-gray-500 hover:text-gray-700"
+              ? "border-b-2 border-blue-600 text-blue-600 dark:border-blue-500 dark:text-blue-500"
+              : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
           }`}
         >
           Incoming ({incomingRequests.length})
         </button>
         <button
           onClick={() => setActiveTab("outgoing")}
+          // Added dark: variants
           className={`px-6 py-3 font-medium ${
             activeTab === "outgoing"
-              ? "border-b-2 border-blue-600 text-blue-600"
-              : "text-gray-500 hover:text-gray-700"
+              ? "border-b-2 border-blue-600 text-blue-600 dark:border-blue-500 dark:text-blue-500"
+              : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
           }`}
         >
           Outgoing ({outgoingRequests.length})
@@ -140,7 +148,8 @@ export const Requests: React.FC = () => {
         <div>
           {incomingRequests.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-gray-500 text-lg">
+              {/* Added dark:text-gray-400 */}
+              <p className="text-gray-500 text-lg dark:text-gray-400">
                 No incoming swap requests at the moment.
               </p>
             </div>
@@ -149,11 +158,13 @@ export const Requests: React.FC = () => {
               {incomingRequests.map((request) => (
                 <div
                   key={request._id}
-                  className="bg-white p-6 rounded-lg shadow-md"
+                  // Added dark:bg-gray-800
+                  className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800"
                 >
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <p className="text-sm text-gray-600 mb-2">
+                      {/* Added dark:text-gray-400 */}
+                      <p className="text-sm text-gray-600 mb-2 dark:text-gray-400">
                         <span className="font-medium">
                           {request.requesterId.name}
                         </span>{" "}
@@ -161,14 +172,18 @@ export const Requests: React.FC = () => {
                       </p>
 
                       <div className="grid md:grid-cols-2 gap-4 mt-4">
-                        <div className="p-4 bg-blue-50 rounded">
-                          <h4 className="font-semibold text-blue-900 mb-2">
+                        {/* Added dark:bg-gray-700 */}
+                        <div className="p-4 bg-blue-50 rounded dark:bg-gray-700">
+                          {/* Added dark:text-blue-300 */}
+                          <h4 className="font-semibold text-blue-900 mb-2 dark:text-blue-300">
                             They offer:
                           </h4>
-                          <p className="font-medium">
+                          {/* Added dark:text-gray-100 */}
+                          <p className="font-medium dark:text-gray-100">
                             {request.requesterSlotId.title}
                           </p>
-                          <p className="text-sm text-gray-600 mt-1">
+                          {/* Added dark:text-gray-400 */}
+                          <p className="text-sm text-gray-600 mt-1 dark:text-gray-400">
                             {format(
                               new Date(request.requesterSlotId.startTime),
                               "PPpp"
@@ -176,14 +191,18 @@ export const Requests: React.FC = () => {
                           </p>
                         </div>
 
-                        <div className="p-4 bg-green-50 rounded">
-                          <h4 className="font-semibold text-green-900 mb-2">
+                        {/* Added dark:bg-gray-700 */}
+                        <div className="p-4 bg-green-50 rounded dark:bg-gray-700">
+                          {/* Added dark:text-green-300 */}
+                          <h4 className="font-semibold text-green-900 mb-2 dark:text-green-300">
                             For your:
                           </h4>
-                          <p className="font-medium">
+                          {/* Added dark:text-gray-100 */}
+                          <p className="font-medium dark:text-gray-100">
                             {request.targetSlotId.title}
                           </p>
-                          <p className="text-sm text-gray-600 mt-1">
+                          {/* Added dark:text-gray-400 */}
+                          <p className="text-sm text-gray-600 mt-1 dark:text-gray-400">
                             {format(
                               new Date(request.targetSlotId.startTime),
                               "PPpp"
@@ -192,7 +211,8 @@ export const Requests: React.FC = () => {
                         </div>
                       </div>
 
-                      <p className="text-xs text-gray-500 mt-3">
+                      {/* Added dark:text-gray-400 */}
+                      <p className="text-xs text-gray-500 mt-3 dark:text-gray-400">
                         Requested on{" "}
                         {format(new Date(request.createdAt), "PPp")}
                       </p>
@@ -225,7 +245,8 @@ export const Requests: React.FC = () => {
         <div>
           {outgoingRequests.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-gray-500 text-lg">
+              {/* Added dark:text-gray-400 */}
+              <p className="text-gray-500 text-lg dark:text-gray-400">
                 No outgoing swap requests at the moment.
               </p>
             </div>
@@ -234,11 +255,13 @@ export const Requests: React.FC = () => {
               {outgoingRequests.map((request) => (
                 <div
                   key={request._id}
-                  className="bg-white p-6 rounded-lg shadow-md"
+                  // Added dark:bg-gray-800
+                  className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-800"
                 >
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <p className="text-sm text-gray-600 mb-2">
+                      {/* Added dark:text-gray-400 */}
+                      <p className="text-sm text-gray-600 mb-2 dark:text-gray-400">
                         Waiting for response from{" "}
                         <span className="font-medium">
                           {request.targetUserId.name}
@@ -246,14 +269,18 @@ export const Requests: React.FC = () => {
                       </p>
 
                       <div className="grid md:grid-cols-2 gap-4 mt-4">
-                        <div className="p-4 bg-blue-50 rounded">
-                          <h4 className="font-semibold text-blue-900 mb-2">
+                        {/* Added dark:bg-gray-700 */}
+                        <div className="p-4 bg-blue-50 rounded dark:bg-gray-700">
+                          {/* Added dark:text-blue-300 */}
+                          <h4 className="font-semibold text-blue-900 mb-2 dark:text-blue-300">
                             You offered:
                           </h4>
-                          <p className="font-medium">
+                          {/* Added dark:text-gray-100 */}
+                          <p className="font-medium dark:text-gray-100">
                             {request.requesterSlotId.title}
                           </p>
-                          <p className="text-sm text-gray-600 mt-1">
+                          {/* Added dark:text-gray-400 */}
+                          <p className="text-sm text-gray-600 mt-1 dark:text-gray-400">
                             {format(
                               new Date(request.requesterSlotId.startTime),
                               "PPpp"
@@ -261,14 +288,18 @@ export const Requests: React.FC = () => {
                           </p>
                         </div>
 
-                        <div className="p-4 bg-green-50 rounded">
-                          <h4 className="font-semibold text-green-900 mb-2">
+                        {/* Added dark:bg-gray-700 */}
+                        <div className="p-4 bg-green-50 rounded dark:bg-gray-700">
+                          {/* Added dark:text-green-300 */}
+                          <h4 className="font-semibold text-green-900 mb-2 dark:text-green-300">
                             For their:
                           </h4>
-                          <p className="font-medium">
+                          {/* Added dark:text-gray-100 */}
+                          <p className="font-medium dark:text-gray-100">
                             {request.targetSlotId.title}
                           </p>
-                          <p className="text-sm text-gray-600 mt-1">
+                          {/* Added dark:text-gray-400 */}
+                          <p className="text-sm text-gray-600 mt-1 dark:text-gray-400">
                             {format(
                               new Date(request.targetSlotId.startTime),
                               "PPpp"
@@ -277,7 +308,8 @@ export const Requests: React.FC = () => {
                         </div>
                       </div>
 
-                      <p className="text-xs text-gray-500 mt-3">
+                      {/* Added dark:text-gray-400 */}
+                      <p className="text-xs text-gray-500 mt-3 dark:text-gray-400">
                         Requested on{" "}
                         {format(new Date(request.createdAt), "PPp")}
                       </p>
@@ -302,11 +334,16 @@ export const Requests: React.FC = () => {
       {/* Cancel Confirmation Modal */}
       {showCancelConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-8 max-w-md w-full">
-            <h2 className="text-2xl font-bold mb-4">Are you sure?</h2>
-            <p className="text-gray-700 mb-6">
+          {/* Added dark:bg-gray-800 */}
+          <div className="bg-white rounded-lg p-8 max-w-md w-full dark:bg-gray-800">
+            {/* Added dark:text-gray-100 */}
+            <h2 className="text-2xl font-bold mb-4 dark:text-gray-100">
+              Are you sure?
+            </h2>
+            {/* Added dark:text-gray-300 */}
+            <p className="text-gray-700 mb-6 dark:text-gray-300">
               This will permanently cancel your swap request.
-            </p>
+            </p>{/* <-- Changed </Nothing> to </p> */}
             <div className="flex gap-2 pt-4">
               <button
                 type="button"
@@ -318,7 +355,8 @@ export const Requests: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setShowCancelConfirm(null)}
-                className="flex-1 bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400"
+                // Added dark: variants
+                className="flex-1 bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
               >
                 Keep Request
               </button>
