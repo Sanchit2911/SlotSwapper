@@ -1,5 +1,4 @@
 //  server/src/models/Events.ts   //
-
 import mongoose, { Schema, Document } from "mongoose";
 import { EventStatus, IUser } from "../types";
 
@@ -20,7 +19,7 @@ const eventSchema = new Schema<IEvent>(
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      index: true,
+      // <-- REMOVED index: true (Covered by the compound index below)
     },
     title: {
       type: String,
@@ -32,7 +31,6 @@ const eventSchema = new Schema<IEvent>(
     startTime: {
       type: Date,
       required: [true, "Start time is required"],
-      index: true,
     },
     endTime: {
       type: Date,
@@ -43,10 +41,12 @@ const eventSchema = new Schema<IEvent>(
       enum: Object.values(EventStatus),
       default: EventStatus.BUSY,
       required: true,
+      index: true,
     },
     swapRequestId: {
       type: Schema.Types.ObjectId,
       ref: "SwapRequest",
+      index: true,
     },
   },
   {
@@ -62,7 +62,8 @@ eventSchema.pre("save", function (next) {
   next();
 });
 
-// Compound index for querying user's events by date
+// Compound index for querying a user's events by date
+// This is your MOST IMPORTANT index for the dashboard/calendar.
 eventSchema.index({ userId: 1, startTime: 1 });
 
 export default mongoose.model<IEvent>("Event", eventSchema);
