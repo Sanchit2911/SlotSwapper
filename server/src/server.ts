@@ -30,7 +30,7 @@ app.use(mongoSanitize()); // Prevent NoSQL injection
 const allowedOrigins = [
   "http://localhost:5173", // local frontend
   "https://slotswapper-frontend-alpha.vercel.app", // vercel domain
-  // Add any other production Vercel URLs here
+  // Add any other production Vercel URLs here for connection
 ];
 
 app.use(
