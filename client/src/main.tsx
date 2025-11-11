@@ -5,13 +5,15 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import { ThemeProvider } from "./context/ThemeContext";
+import { HelmetProvider } from "react-helmet-async"; // 1. Import
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider>
-      {" "}
-      {/* 2. WRAP THE <App /> COMPONENT */}
-      <App />
-    </ThemeProvider>
+    {/* 2. Wrap your app */}
+    <HelmetProvider>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </HelmetProvider>
   </React.StrictMode>
 );
